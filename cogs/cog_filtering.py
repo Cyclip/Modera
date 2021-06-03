@@ -1,13 +1,14 @@
 import discord
 from discord.ext import commands, tasks
-import config
 import typing
 import difflib
 import hashlib
 import re
+import asyncio
 
 from funcs.get_db import mongoClient
 from funcs import comment_analysis
+import config
 
 
 class Filtering(commands.Cog):
@@ -19,6 +20,9 @@ class Filtering(commands.Cog):
         self.serverSettings = self.dataDb.server_settings
 
         self.handle_queue.start()
+
+    def cog_unload(self):
+        self.handle_queue.cancel()
 
     @commands.cooldown(4, 2, commands.BucketType.guild)
     @commands.has_permissions(manage_guild=True)
@@ -329,6 +333,71 @@ class Filtering(commands.Cog):
         self.queue.remove({})
         print("Cleared queue")
 
+    async def handle_punishments(self, serverID, user, messages, violations):
+        punishmentSettings = self.get_server_settings(serverID)["punishment"]
+        ctx = messages[0]
+
+        for violation in violations:
+            actions = punishmentSettings[violation]
+            for action in actions:
+                print(f"Action {action}")
+                if action["type"] == "ban":
+                    await ctx.guild.ban(
+                        user, reason=self.format_reason(messages, action)
+                    )
+                elif action["type"] == "kick":
+                    await ctx.guild.kick(
+                        user, reason=self.format_reason(messages, action)
+                    )
+                elif action["type"] == "mute":
+                    role = discord.utils.get(server.roles, name="muted")
+                    loop = asyncio.get_event_loop()
+                    loop.create_task(
+                        self.mute_user(ctx.author, ctx.guild, role, action)
+                    )
+                elif action["type"] == "addRole":
+                    role = discord.utils.get(server.roles, name=action["rolename"])
+                    await ctx.author.add_roles(role)
+                elif action["type"] == "removeRole":
+                    role = discord.utils.get(server.roles, name=action["rolename"])
+                    await ctx.author.remove_roles(role)
+                elif action["type"] == "warn":
+                    pass
+                elif action["type"] == "dm":
+                    reason = self.format_reason(messages, action)
+                    msg = f"Message from {ctx.guild.name}:\n```{reason}```"
+                    if action["user"] == 0:
+                        await ctx.author.send(msg)
+                    else:
+                        await self.bot.get_user(action["user"]).send(msg)
+
+    def format_reason(self, messages, action):
+        try:
+            reason = action["reason"]
+        except:
+            reason = action["msg"]
+        reason = reason.replace(
+            "{MESSAGE}", ", ".join([f"'{i.content[:50]}'" for i in messages])
+        )
+        try:
+            reason = reason.replace("{REASON}", action["reason"])
+        except:
+            pass
+        reason = reason.replace(
+            "{JUMP}",
+            ", ".join([f"[Jump {i}]({j.jump_url})" for i, j in enumerate(messages)]),
+        )
+        return reason
+
+    async def mute_user(self, guild, user, role, action):
+        await user.add_roles(role)
+        reason = self.format_reason(action)
+        user.send(
+            f"You have been muted from {guild.name} for {action['duration']} seconds:\n```{reason}```"
+        )
+        await asyncio.sleep(action["duration"])
+        await user.remove_roles(role)
+
     async def handle_violations(self, data):
         """
         {
@@ -351,6 +420,11 @@ class Filtering(commands.Cog):
                 if len(details["violations"]) == 0:
                     print(f"No violations ({details['violations']})")
                     continue
+
+                # Punish
+                await self.handle_punishments(
+                    server.id, user, details["msg"], details["violations"]
+                )
 
                 msgs = [i for i in details["msg"] if not isinstance(i, list)]
 
@@ -394,10 +468,12 @@ class Filtering(commands.Cog):
 
                 embed.set_thumbnail(url=user.avatar_url)
 
-                embedMsg = await channel.send(embed=embed)
-                print("Sent embed")
+                try:
+                    embedMsg = await channel.send(embed=embed)
 
-                await embedMsg.add_reaction("⚠️")
+                    await embedMsg.add_reaction("⚠️")
+                except:
+                    return
 
                 if serverSettings["deleteComments"]:
                     for msg in msgs:

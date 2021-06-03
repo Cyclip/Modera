@@ -1,0 +1,813 @@
+:root {
+    --grid-cols: 3;
+    --grid-rows: 4;
+}
+
+body {
+	/*background-color: #22232b;*/
+	background: linear-gradient(-45deg, #0e0f13, #333541);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+	overflow: none;
+}
+
+@keyframes gradient {
+	0% {
+			background-position: 0% 50%;
+	}
+	50% {
+			background-position: 100% 50%;
+	}
+	100% {
+			background-position: 0% 50%;
+	}
+}
+
+.dashboard {
+	padding-top: 50px;
+	width: 100%;
+	height: 140vh;
+	background-color: #282a34;
+}
+
+/* Menu */
+.menu {
+	width: 300px;
+	height: 140vh;
+	background-color: #2f3340;
+	overflow-x: none;
+	color: white;
+	float: left;
+
+	box-shadow: 1px 0px 6px 1px black;
+}
+
+/* Menu - Profile */
+.profile {
+	width: 100%;
+	height: 75px;
+	padding-top: 7%;
+	padding-bottom: 5%;
+	padding-left: 20px;
+}
+
+
+.profileIcon {
+	vertical-align: middle;
+	width: 64px;
+	height: 64px;
+	border-radius: 40%;
+	float: left;
+}
+
+.profileDetails {
+	color: white;
+	margin-left: 20px;
+	float: left;
+	text-align: left;
+	padding-top: 7px;
+}
+
+.profileDetailsText {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-weight: lighter;
+}
+
+.username {
+	font-size: 25px;
+	font-size: 2vw;
+	font-weight: bolder;;
+}
+
+/* Menu - Menu contents*/
+.menuContents {
+	position: absolute;
+	width: inherit;
+	bottom: 0;
+
+	border-top-color: #b8b1b1;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+.menuContents button::before {
+	content: "> ";
+}
+
+.menuContents button {
+	width: 100%;
+	height: 30px;
+	font-size: 17px;
+	font-family: Consolas;
+	color: white;
+	text-decoration: none;
+	outline: none;
+	background-color: #333846;
+	color: #b8b1b1;
+	border: none;
+	text-align: left;
+	padding-left: 30px;
+	transition: 0.2s ease;
+	cursor: pointer;
+}
+
+.menuContents button:not(:last-child) {
+	border-bottom: none; /* Prevent double borders */
+}
+
+.menuContents button:nth-child(2n) {
+	background-color: #303541;
+}
+
+.menuContents button:hover {
+	background-color: #3a3f4e;
+	color: #c4edc4;
+	padding-left: 35px;
+}
+
+/* Menu - Menu server contents*/
+.menuContentsServer {
+	width: inherit;
+
+	border-top-color: #b8b1b1;
+	border-top-style: solid;
+	border-top-width: 1px;
+
+	border-bottom-color: #b8b1b1;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+.menuContentsServer button::before {
+	content: "> ";
+}
+
+.menuContentsServer button {
+	width: 100%;
+	height: 30px;
+	font-size: 17px;
+	font-family: Consolas;
+	color: white;
+	text-decoration: none;
+	outline: none;
+	background-color: #333846;
+	color: #b8b1b1;
+	border: none;
+	text-align: left;
+	padding-left: 30px;
+	transition: 0.2s ease;
+	cursor: pointer;
+}
+
+.menuContentsServer button:not(:last-child) {
+	border-bottom: none; /* Prevent double borders */
+}
+
+.menuContentsServer button:nth-child(2n) {
+	background-color: #303541;
+}
+
+.menuContentsServer button:hover {
+	background-color: #3a3f4e;
+	color: #c4edc4;
+	padding-left: 35px;
+}
+
+.menuContentsServer .separator {
+    border-top-color: rgba(184, 176, 176, 0.37);
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+/* Cotnent*/
+.content {
+	color: white;
+	float: left;
+    width: calc(100% - 350px);
+    height: auto 100%;
+	padding-left: 20px;
+	padding-top: 20px;
+}
+
+
+.serverIcon {
+    width: 64px;
+    height: 64px;
+    border-radius: 25%;
+    float: left;
+}
+
+.serverDetails {
+    padding-bottom: 60px;
+    position: relative;
+}
+
+.serverDetails h1 {
+    float: left;
+    padding-left: 76px;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.section {
+    margin-top: 20px;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: rgba(184, 175, 175, 0.07);
+    border-width: 1px;
+}
+
+.section .interior {
+    padding-left: 20px;
+}
+
+.interior .sectionTitle {
+    padding-top: 0px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+#filter-grid {
+    display: grid;
+	grid-gap: 1em;
+	grid-template-rows: repeat(var(--grid-rows), 1fr);
+	grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+
+.filter-item {
+	padding: 1em;
+	border: 1px solid rgba(144, 143, 143, 0.58);
+	border-radius: 15px;
+	width: 250px;
+	height: auto;
+	background-color: #2b303c;
+}
+
+.section {
+    background-color: #2a2c38;
+    width: 100%;
+}
+
+.interior h2 {
+    font-size: 30px;
+}
+
+.filter-item h2 {
+    font-size: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.filter-item h3 {
+    font-size: 15px;
+    font-weight: lighter;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* Checkboxes */
+.checkboxContainer {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-size: 17px;
+    top: -2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 5px;
+    transition: 0.2s ease;
+}
+
+/* On mouse-over, add a grey background color */
+.checkboxContainer:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkboxContainer input:checked ~ .checkmark {
+    background-color: #55657d;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxContainer input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxContainer .checkmark:after {
+    left: 7px;
+    top: 0px;
+    width: 4px;
+    height: 15px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.checkboxContainer .checkmark {
+    float: right;
+}
+
+.filter-item .sliderText {
+    float: left;
+    width: auto;
+}
+
+.filter-item .slider {
+    float: right;
+    margin-top: 5px;
+}
+
+.filter-item output {
+    float: right;
+    margin-top: 4px;
+    padding-right: 5px;
+}
+
+.sliderContainer {
+    height: 35px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    opacity: 0;
+    visibility: hidden;
+    width: 150px;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    background-color: rgba(20, 22, 28, 0.88);
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px 5px;
+    float: left;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+
+    transition: opacity 0.5s 0.5s ease-in;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.prefixes {
+    width: 100%;
+    height: 260px;
+    margin-bottom: 30px;
+}
+
+.prefixes h3 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.prefixes input {
+    width: 180px;
+    background-color: #3d4550;
+    outline: none;
+    border-color: #3d4550;
+    border-style: solid;
+    border-width: 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    border-radius: 5px;
+    color: rgb(190, 190, 190);
+    float: left;
+    transition: 0.5s ease;
+    font-size: 16px;
+}
+
+.prefixes input:hover {
+    border-color: #79dd8c;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.generalName button, .prefixes button {
+    float: left;
+    margin-left: 15px;
+    outline: none;
+    border: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    background-color: #405167;
+    color: #ffffff;
+    font-family: Gidole;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    grid-template-columns: minmax(250px, 1fr);
+}
+
+.generalName button:hover, .prefixes button:hover {
+    background-color: #556881;
+    border-radius: 10px;
+}
+
+.serverSettingsList {
+    margin-top: 45px;
+    width: 30%;
+    height: 150px;
+}
+
+.generalList {
+    background-color: #2e3641;
+    overflow-y: scroll;
+}
+
+.generalItem {
+    display: inline-block;
+    width: 100%;
+    float: left;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: #363f4b;
+    transition: 0.2s;
+}
+
+.generalItem:hover {
+    background-color: #374457;
+}
+
+.generalItem:nth-child(2n) {
+    background-color: #39424e;
+}
+
+.generalItem .generalName {
+    padding-left: 10px;
+}
+
+.generalName:hover button {
+    opacity: 1;
+}
+
+.generalName button {
+    display: inline-block;
+    opacity: 0;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    float: right;
+    border: none;
+    background-color: #374457;
+    color: #f07f7f;
+    text-align: center;
+    float: right;
+    transition: 0.1s ease;
+}
+
+.generalItem button {
+    background-color: #3f4d61;
+}
+
+#punishmentSelect {
+    width: 900px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    font-family: Gidole;
+    background-color: #36414b;
+    border-color: #36414b;
+    border-width: 1px;
+    color: white;
+    transition: 0.2s ease;
+    outline: none;
+}
+
+#punishmentSelect:hover {
+    padding-left: 7px;
+    background-color: #424f5b;
+}
+
+#punishmentSelect:focus {
+    border-style: solid;
+    border-color: #3a515d;
+}
+
+.punishmentBox {
+    width: 900px;
+    height: 300px;
+    background-color: red;
+    margin-bottom: 20px;
+}
+
+.punishmentList {
+    float: left;
+    width: 70%;
+    height: 100%;
+}
+
+.punishmentButtons {
+    float: left;
+    width: 30%;
+    height: 100%;
+    background-color: #2d2e3b;
+    text-align: center;
+}
+
+.punishmentButtons .interior {
+    padding-top: 20px;
+    padding-left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.punishmentButtons button {
+    width: 90%;
+    height: 30px;
+    margin-bottom: 10px;
+    background-color: #405167;
+    transition: 0.2s ease;
+    border-radius: 5px;
+    font-family: Gidole;
+    font-size: 16px;
+    color: #c6c6c6;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.punishmentButtons button:hover {
+    background-color: #556881;
+}
+
+.popup {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.dialog {
+    background-color: #293442;
+    width: 500px;
+    height: 550px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dialog h1, h2, h3 {
+    font-family: Gidole;
+    color: white;
+}
+
+.dialog h1, h2 {
+    text-align: center;
+}
+
+.dialog h3 {
+    margin-bottom: 5px;
+}
+
+.dialog h2 {
+    color: rgb(212, 212, 212);
+}
+
+.dialog .ptitle {
+    margin-bottom: 5px;
+}
+
+.dialog .pname {
+    margin-top: 5px;
+}
+
+.dialog input {
+    width: 80%;
+    font-family: Gidole;
+    font-size: 10px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    font-family: Gidole;
+    background-color: #36414b;
+    border-color: #36414b;
+    border-width: 1px;
+    color: white;
+    transition: 0.2s ease;
+    outline: none;
+}
+
+.dialog .exit {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    border-color: white;
+    border-width: 1px;
+    border-style: none;
+    border-radius: 50%;
+    vertical-align: middle;
+    font-size: 16px;
+    outline: none;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-right: 20px;
+    margin-top: 20px;
+
+    transition: color 0.2s ease;
+}
+
+.dialog .exit:hover {
+    color: rgb(209, 254, 250);
+}
+
+.dialog textarea {
+    width: 100%;
+    background-color: #2d2e3b;
+    color: white;
+    outline: none;
+    border-radius: 8px;
+    padding: 5px;
+    height: 100px;
+    white-space: pre-wrap;
+}
+
+.dialog input {
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border: none;
+    border-radius: 5px;
+    padding-left: 5px;
+    font: 16px Gidole;
+    color: white;
+    transition: 0.2s ease;
+}
+
+.dialog input:hover {
+    background-color: #3b4752;
+}
+
+.dialog input:focus {
+    border-color: rgba(83, 112, 126, 0.5);
+    border-style: solid;
+    border-width: 1px;
+}
+
+.dialog .endButtons {
+    width: 100%;
+    position: absolute;
+    bottom: 15px;
+}
+
+.dialog .endButtons button {
+    width: 200px;
+    color: white;
+    outline: none;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    font-size: 18px;
+    font-family: Gidole;
+    border: none;
+    border-radius: 20px;
+    float: left;
+    margin-left: 25px;
+    margin-right: 25px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.dialog .endButtons .submit {
+    background-color: #26a16d;
+}
+
+.dialog .endButtons .cancel {
+    background-color: #a12626;
+}
+
+.dialog .endButtons .submit:hover {
+    background-color: #35b57f;
+}
+
+.dialog .endButtons .cancel:hover {
+    background-color: #af3e3e;
+}
+
+#addPunishmentSelect {
+    width: 90%;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    font-family: Gidole;
+    background-color: #36414b;
+    border-color: #36414b;
+    border-width: 1px;
+    color: white;
+    transition: 0.2s ease;
+    outline: none;
+}
+
+#addPunishmentSelect:hover {
+    padding-left: 7px;
+    background-color: #424f5b;
+}
+
+#addPunishmentSelect:focus {
+    border-style: solid;
+    border-color: #3a515d;
+}
+
+.saveDialog {
+    height: 30px;
+    width: 150px;
+    position: fixed;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    margin-left: 20px;
+    bottom: 20px;
+    background-color: #606f7d;
+    border-radius: 20px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.saveDialog button {
+    width: 100%;
+    background-color: #26a16d;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    height: 100%;
+    font-size: 16px;
+    border-radius: 20px;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.saveDialog button:hover {
+    background-color: #2fb37b;
+}

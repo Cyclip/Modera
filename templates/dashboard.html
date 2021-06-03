@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+	<style type="text/css">body {background: #333541ff top left no-repeat;}</style>
+	<title>Dashboard - Modera</title>
+	<meta charset="UTF-8">
+	<link rel="icon" href="{{ url_for('static', filename='imgs/logo.png' )}}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ url_for('static', filename='lib/alertifyjs/alertify.min.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/navbar.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/dashboard.js' )}}"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/alertify.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/themes/default.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/navbar.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/dashboard.css' )}}" />
+
+	<script src="{{ url_for('static', filename='js/fadein.js' )}}"></script>
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/fadein.css' )}}" />
+
+	<script>
+		var guilds = {{guilds | safe}};
+		function setupGuilds() {
+			for (i = 0; i < guilds.length; i++) {
+				addServer(guilds[i]["icon"], guilds[i]["id"], guilds[i]["name"]);
+			}
+		}
+	</script>
+</head>
+<body onload="setupGuilds()" class="hidden">
+	<div class="topnav" id="navbar" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+		<a href="/" class="logo">
+			<img border="0" class="logoimg" alt="Modera logo" src="{{ url_for('static', filename='imgs/logo_full_white.png' )}}" />
+		</a>
+		<a href="{{url_for('home')}}" class="home">Home</a>
+		<a href="{{url_for('home')}}#invite" onclick="inviteScroll()">Invite</a>
+		<a href="{{url_for('info')}}">Info</a>
+		<a href="{{url_for('tos')}}">Terms of Service</a>
+		<a href="{{url_for('privacy')}}">Privacy policy</a>
+		<a href="{{url_for('report')}}">Report</a>
+		<a href="{{url_for('dashboard')}}" class="active floatright">Dashboard</a>
+		<a href="javascript:void(0);" class="icon" onclick="func()">
+		<i class="fa fa-bars"></i>
+	</div>
+	</a>
+	<div class="dashboard">
+		<div class="menu">
+			<div class="profile">
+				<img src="{{userIconURL}}" class="profileIcon" />
+				<div class="profileDetails">
+					<h5 class="profileDetailsText">Logged in as</h5>
+					<h3 class="profileDetailsText username">{{username}}#{{discriminator}}</h3>
+				</div>
+			</div>
+			<div class="menuContents">
+				<button onclick="window.open('/#invite', '_self');">Invite bot</button>
+				<button onclick="window.open('/dashboard', '_self');">View all servers</button>
+				<button onclick="window.open('/info#filters', '_self');">Filters information</button>
+				<button onclick="window.open('/info#models', '_self');">Models</button>
+				<button onclick="window.open('/info#datasets', '_self');">Datasets</button>
+
+			</div>
+		</div>
+		<div class="content">
+			<div class="section" style="width: 100%;">
+				<h1>Available servers</h1>
+				<div class="grid-container" id="container">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

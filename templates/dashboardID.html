@@ -1,0 +1,215 @@
+<html lang="en">
+<head>
+	<style type="text/css">body {background: #333541ff top left no-repeat;}</style>
+	<title>Dashboard - Modera</title>
+	<meta charset="UTF-8">
+	<link rel="icon" href="{{ url_for('static', filename='imgs/logo.png' )}}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ url_for('static', filename='lib/alertifyjs/alertify.min.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/navbar.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/dashboardID.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/duration.js' )}}"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/alertify.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/themes/default.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/navbar.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/dashboardID.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/duration.css' )}}" />
+
+	<script src="{{ url_for('static', filename='js/fadein.js' )}}"></script>
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/fadein.css' )}}" />
+
+	<script>
+		var attributes = {{attributes | safe}};
+		var currentSettings = {{currentSettings | safe}};
+		var describeSettings = {{describeSettings | safe}};
+	</script>
+</head>
+<body class="hidden" onload="handleSettings(currentSettings);">
+	<div class="topnav" id="navbar" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+		<a href="/" class="logo">
+			<img border="0" class="logoimg" alt="Modera logo" src="{{ url_for('static', filename='imgs/logo_full_white.png' )}}" />
+		</a>
+		<a href="{{url_for('home')}}" class="home">Home</a>
+		<a href="{{url_for('home')}}#invite" onclick="inviteScroll()">Invite</a>
+		<a href="{{url_for('info')}}">Info</a>
+		<a href="{{url_for('tos')}}">Terms of Service</a>
+		<a href="{{url_for('privacy')}}">Privacy policy</a>
+		<a href="{{url_for('report')}}">Report</a>
+		<a href="{{url_for('dashboard')}}" class="active floatright">Dashboard</a>
+		<a href="javascript:void(0);" class="icon" onclick="func()">
+		<i class="fa fa-bars"></i>
+	</div>
+	</a>
+	<div class="dashboard">
+		<div class="menu">
+			<div class="profile">
+				<img src="{{userIconURL}}" class="profileIcon" />
+				<div class="profileDetails">
+					<h5 class="profileDetailsText">Logged in as</h5>
+					<h3 class="profileDetailsText username">{{username}}#{{discriminator}}</h3>
+				</div>
+			</div>
+			<div class="menuContentsServer">
+				<button onclick="showTab('server');">Server settings</button>
+				<button onclick="showTab('filters');">Filters</button>
+				<button onclick="showTab('punishment');">Punishment</button>
+				<button onclick="window.open('{{url_for('dashboard')}}', '_self');" class="separator">View all servers</button>
+				<button onclick="window.open('/info#filters', '_self');">Filter information</button>
+			</div>
+		</div>
+		<div class="content">
+			<div class="serverDetails">
+				<img src="{{serverIconURL}}" class="serverIcon" />
+				<h1>{{serverName}} settings</h1>
+			</div>
+			<div class="section" id="server">
+				<div class="interior">
+					<h2 class="sectionTitle">Server settings</h2>
+					<div id="serverSettings">
+						<div class="serverSetting tooltip prefixes">
+							<span class="tooltiptext">A list of prefixes to call the bot using</span>
+							<h3>Prefixes</h3>
+							<input type="text" id="prefixInput" placeholder="Enter prefix" maxlength="6"/>
+							<button onclick="addPrefix($('#prefixInput', false).val());">Add prefix</button>
+							<div class="generalList serverSettingsList" id="prefixList">
+							</div><br />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="section" style="display: none;" id="filters">
+				<div class="interior">
+					<h2 class="sectionTitle">Filter settings</h2>
+					<div id="filter-grid">
+					</div>
+				</div>
+			</div>
+			<div class="section" style="display: none;" id="punishment">
+				<div class="interior">
+					<h2 class="sectionTitle">Punishment settings</h2>
+					<select name="punishmentSelect" id="punishmentSelect" onchange="loadPunishment();">
+					</select>
+					<div class="punishmentBox">
+						<div class="generalList punishmentList" id="punishmentList">
+						</div>
+						<div class="punishmentButtons">
+							<div class="interior">
+								<select name="addPunishmentSelect" id="addPunishmentSelect">
+									<option value="ban">Ban user</option>
+									<option value="kick">Kick user</option>
+									<option value="mute">Mute user</option>
+									<option value="addRole">Add role</option>
+									<option value="removeRole">Remove role</option>
+									<option value="warn">Warn user</option>
+									<option value="dm">DM user</option>
+								</select>
+								<button onclick="createPunishment($('#addPunishmentSelect').val())">Add punishment</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="popup" style="visibility: hidden;">
+		<div class="dialog" id="dialog-ban">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">Ban user</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<h3>Ban message: </h3>
+			<textarea maxlength=1000 placeholder="Enter a ban message here." id="dialog-ban-reason">Message: {MESSAGE}&#13;&#10;Reason: {REASON}</textarea>
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+		<div class="dialog" id="dialog-kick">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">Kick user</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<h3>Kick message: </h3>
+			<textarea maxlength=1000 placeholder="Enter a kick message here." id="dialog-kick-reason">Message: {MESSAGE}&#13;&#10;Reason: {REASON}</textarea>
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+		<div class="dialog" id="dialog-mute">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">Mute user</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<h3>Mute message: </h3>
+			<textarea maxlength=1000 placeholder="Enter a mute message here." id="dialog-mute-reason">Message: {MESSAGE}&#13;&#10;Reason: {REASON}</textarea>
+			<br />
+			<h3>Duration: </h3>
+			<div class="duration" id="dialog-mute-duration">
+				<div class="input">
+					<input type="number" min="0" max="365" step="1" value="0" class="spinbox days">
+					<span class="suffix"> days</span>
+				</div>
+				<div class="input">
+					<input type="number" min="0" max="24" step="1" value="1" class="spinbox hours">
+					<span class="suffix"> hours</span>
+				</div>
+				<div class="input">
+					<input type="number" min="0" max="60" step="1" value="0" class="spinbox minutes">
+					<span class="suffix"> minutes</span>
+				</div>
+			</div>
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+		<div class="dialog" id="dialog-addRole">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">Add role</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<input type="text" id="dialog-addRole-rolename" placeholder="Role name" />
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+		<div class="dialog" id="dialog-removeRole">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">Remove role</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<input type="text" id="dialog-removeRole-rolename" placeholder="Role name" />
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+		<div class="dialog" id="dialog-warn">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">Warn user</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<h3>No options available</h3>
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+		<div class="dialog" id="dialog-dm">
+			<h1 class="ptitle">Add punishment</h1>
+			<h2 class="pname">DM user</h2>
+			<button class="exit" onclick="closeDialog();">x</button>
+			<input type="text" id="dialog-dm-user" placeholder="{USER} to DM the offender" />
+			<h3>DM message: </h3>
+			<textarea maxlength=1000 placeholder="Enter a DM message here." id="dialog-dm-message">Message: {MESSAGE}</textarea>
+			<div class="endButtons">
+				<button class="submit" onclick="addDialog($('#addPunishmentSelect').val());">Add punishment</button>
+				<button class="cancel" onclick="closeDialog();">Cancel</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="saveDialog" style="visibility: hidden;">
+		<button id="saveChanges" onclick="saveChanges();">Save changes</button>
+	</div>
+
+</body>
+</html>

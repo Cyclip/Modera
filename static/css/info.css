@@ -1,0 +1,217 @@
+/* CSS HEX */
+--raisin-black: #16171dff;
+--onyx: #333541ff;
+--nyanza: #ddeed2;
+--glaucous: #5c80bc;
+--carolina-blue: #4ea5d9ff;
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-right: linear-gradient(90deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-bottom: linear-gradient(180deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-left: linear-gradient(270deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-top-right: linear-gradient(45deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-bottom-right: linear-gradient(135deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-top-left: linear-gradient(225deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-bottom-left: linear-gradient(315deg, #16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+$gradient-radial: radial-gradient(#16171dff, #7b7263ff, #dceed1ff, #4062bbff, #92bceaff);
+
+#fadein {
+	opacity: 1.0;
+}
+
+body {
+	/*background-color: #22232b;*/
+	background: linear-gradient(-45deg, #0e0f13, #333541);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+			background-position: 0% 50%;
+	}
+	50% {
+			background-position: 100% 50%;
+	}
+	100% {
+			background-position: 0% 50%;
+	}
+}
+
+.section {
+	position: relative;
+	width: 100%;
+	height: 450px;
+	/*background-color: rgba(255, 0, 0, 0.21);*/
+	font-family: Gidole;
+	color: white;
+}
+
+#filters {
+	padding-top: 50px;
+}
+
+.section h1 {
+	width: 100%;
+	text-align: center;
+	font-size: 50px;
+}
+
+.tabWidget {
+	margin: auto;
+	width: 954.5;
+	height: 300px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: white;
+}
+
+.tabWidget .bar {
+	width: 100%;
+	height: 40px;
+
+	border-bottom-color: white;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+}
+
+.tabWidget .bar button {
+	padding-left: 14px;
+	padding-right: 14px;
+	float: left;
+	height: 100%;
+	font-family: Gidole;
+	font-size: 17px;
+	color: white;
+	outline: none;
+	text-decoration: none;
+	background-color: black;
+	border: none;
+	cursor: pointer;
+	transition: 0.2s ease;
+}
+
+.tabWidget .bar button:nth-child(2n) {
+	background-color: rgb(5, 5, 5);
+}
+
+.tabWidget .bar button:hover {
+	background-color: rgb(175, 175, 175);
+	color: black;
+}
+
+.tabWidget .bar button.active {
+	background-color: white;
+	color: black;
+	cursor: default;
+}
+
+.tabWidget .contents .contentSection {
+	height: calc(100% - 42px);
+	width: 100%;
+}
+
+.tabWidget .contents .contentSection:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tabWidget .contents .contentItem {
+	float: left;
+	width: 60%;
+	background-color: #494c55;
+	height: 100%;
+}
+
+.tabWidget .contents .example {
+	width: 40%;
+}
+
+.tabWidget .contents .example {
+	background-color: #3f434d;
+}
+
+.tabWidget .contents .contentItem .text {
+	padding-left: 15px;
+	padding-right: 15px;
+	color: white;
+}
+
+.tabWidget .contents .contentItem .text h3 {
+	font-weight: lighter;
+	font-size: 16px;
+}
+
+.tabWidget .contents .contentItem .text .exampleIndividual {
+	width: 100%;
+	height: 30px;
+}
+
+.tabWidget .contents .contentItem .text .exampleText {
+	margin-bottom: 5px;
+	float: left;
+}
+
+.tabWidget .contents .contentItem .text .measurementText {
+	color: rgb(210, 118, 118);
+	font-size: 16px;
+	padding-top: 20px;
+	padding-left: 75%;
+}
+
+#modelCards {
+	height: 650px;
+}
+
+.mcgcontainer {
+	padding-left: 50px;
+	padding-right: 50px;
+	margin: auto;
+}
+
+.modelCardsGrid {
+	width: 100%;
+	display: grid;
+	/*grid-template-columns: 1fr 1fr 1fr;*/
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-row-gap: 30px;
+	grid-column-gap: 50px;
+}
+
+.linkButton {
+	background-color: #1b1c24;
+	width: 380px;
+	height: 220px;
+	border-radius: 20px;
+	cursor: pointer;
+	transition: 0.2s ease;
+	box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.05);
+}
+
+.linkButton .text {
+	transition: 0.2s ease;
+}
+
+.linkButton:hover {
+	background-color: #1f212a;
+	box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.48);
+}
+
+.linkButton:hover .text {
+	text-shadow: 0 0 10px rgba(255, 255, 255, 0.48);
+}
+
+.linkButton h2 {
+	font-size: 40px;
+	text-align: center;
+}
+
+.linkButton h3 {
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 18px;
+	font-weight: lighter;
+	text-align: center;
+}

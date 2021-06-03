@@ -1,0 +1,301 @@
+<html lang="en">
+<head>
+	<style type="text/css">body {background: #333541ff top left no-repeat;}</style>
+	<title>Info - Modera</title>
+	<meta charset="UTF-8">
+	<link rel="icon" href="{{ url_for('static', filename='imgs/logo.png' )}}">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ url_for('static', filename='lib/alertifyjs/alertify.min.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/navbar.js' )}}"></script>
+	<script src="{{ url_for('static', filename='js/info.js' )}}"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/alertify.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/themes/default.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/navbar.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/info.css' )}}" />
+
+	<script src="{{ url_for('static', filename='js/fadein.js' )}}"></script>
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/fadein.css' )}}" />
+
+</head>
+<body class="hidden">
+	<div class="topnav" id="navbar" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+		<a href="/" class="logo">
+			<img border="0" class="logoimg" alt="Modera logo" src="{{ url_for('static', filename='imgs/logo_full_white.png' )}}" />
+		</a>
+		<a href="/" class="home">Home</a>
+		<a class="clickableA" onclick="inviteScroll()">Invite</a>
+		<a href="info" class="active">Info</a>
+		<a href="tos">Terms of Service</a>
+		<a href="privacy">Privacy policy</a>
+		<a href="report">Report</a>
+		<a href="dashboard" class="floatright">Dashboard</a>
+		<a href="javascript:void(0);" class="icon" onclick="func()">
+		<i class="fa fa-bars"></i>
+	</div>
+	</a>
+	<div class="section" id="filters">
+		<h1>Filters</h1>
+		<div class="tabWidget">
+			<div class="bar" id="tabBar">
+				<button class="active" onclick="changeFilter('toxicity');" id="filter-toxicity">Toxicity</button>
+				<button onclick="changeFilter('abusive');" id="filter-abusive">Abusive</button>
+				<button onclick="changeFilter('identity_attack');" id="filter-identity_attack">Identity Attack</button>
+				<button onclick="changeFilter('insults');" id="filter-insults">Insults</button>
+				<button onclick="changeFilter('profanity');" id="filter-profanity">Profanity</button>
+				<button onclick="changeFilter('threats');" id="filter-threats">Threats</button>
+				<button onclick="changeFilter('sexual');" id="filter-sexual">Sexual</button>
+				<button onclick="changeFilter('flirtation');" id="filter-flirtation">Flirtation</button>
+				<button onclick="changeFilter('incoherency');" id="filter-incoherency">Incoherency</button>
+				<button onclick="changeFilter('inflammatory');" id="filter-inflammatory">Inflammatory</button>
+			</div>
+			<div class="contents" id="content">
+				<div class="contentSection" id="content-toxicity">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Toxicity</h2>
+							<h3>A rude, disrespectful, or unreasonable comment that is likely to make people leave a discussion.</h3>
+							<h3>This filter is very sensitive and may flag harmless messages. It's advised to use the abusive filter instead.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"You are an idiot"</h3>
+								<h3 class="measurementText">97% toxicity</h3>
+							</div>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"I hope you die"</h3>
+								<h3 class="measurementText">94% toxicity</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-abusive" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Abusive</h2>
+							<h3>A very hateful, aggressive, disrespectful comment or otherwise very likely to make a user leave a discussion or give up on sharing their perspective. This attribute is much less sensitive to more mild forms of toxicity, such as comments that include positive uses of curse words.</h3>
+							<h3>This filter is less sensitive and recommended for general moderation.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"I wish you killed yourself"</h3>
+								<h3 class="measurementText">89% abusive</h3>
+							</div>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"try cutting yourself attention whore"</h3>
+								<h3 class="measurementText">81% abusive</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-identity_attack" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Identity Attacks</h2>
+							<h3>Negative or hateful comments targeting someone because of their identity.</h3>
+							<h3>This includes racism, sexism, homophobia, and all general forms of discrimination and/or prejudice.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"Kill all men"</h3>
+								<h3 class="measurementText">92% identity attack</h3>
+							</div>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"gays dont have rights"</h3>
+								<h3 class="measurementText">90% identity attack</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-insults" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Insults</h2>
+							<h3>Insulting, inflammatory, or negative comment towards a person or a group of people.</h3>
+							<h3>These insults cover discrimination albeit not to the extent of the insults filter. It may be slightly sensitive so thresholds should be high.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"You're useless"</h3>
+								<h3 class="measurementText">91% insult</h3>
+							</div>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"talking to another guy you slut?"</h3>
+								<h3 class="measurementText">96% insult</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-profanity" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Profanity</h2>
+							<h3>Swear words, curse words, or other obscene or profane language.</h3>
+							<h3>This filter covers all profane language (including basic swear words including "dumb"). Set the threshold high if these are not desired.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"you're retarded"</h3>
+								<h3 class="measurementText">78% profanity</h3>
+							</div>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"wtf does that mean"</h3>
+								<h3 class="measurementText">83% profanity</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-threats" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Threats</h2>
+							<h3>Describes an intention to inflict pain, injury, or violence against an individual or group.</h3>
+							<h3>The threats filter is effective in production, but it is highly recommended to DM appropriate staff of the incident.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"if you don't stfu ill kill you"</h3>
+								<h3 class="measurementText">97% threats</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-sexual" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Sexual</h2>
+							<h3>Contains references to sexual acts, body parts, or other lewd content.</h3>
+							<h3>This filter can be disabled in NSFW channels.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>No examples available</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-flirtation" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Flirtation</h2>
+							<h3>Pickup lines, complimenting appearance, subtle sexual innuendos, etc.</h3>
+							<h3></h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>No examples available</h2>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-incoherency" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Incoherency</h2>
+							<h3>Messages which are difficult to understand or nonsensical.</h3>
+							<h3>Effective for spam prevention.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"alokwdof"</h3>
+								<h3 class="measurementText">89% incoherent</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contentSection" id="content-inflammatory" style="display: none;">
+					<div class="contentItem details">
+						<div class="text">
+							<h2>Inflammatory</h2>
+							<h2></h2>
+							<h3>Messages which are intending to provoke or inflame another person or a group of people.</h3>
+							<h3>This filter should be used as an addon to the Toxicity & Insults filter.</h3>
+						</div>
+					</div>
+					<div class="contentItem example">
+						<div class="text">
+							<h2>Example</h2>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"You are an idiot"</h3>
+								<h3 class="measurementText">97% inflammatory</h3>
+							</div>
+							<div class="exampleIndividual">
+								<h3 class="exampleText">"I hope you die"</h3>
+								<h3 class="measurementText">94% inflammatory</h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section" id="modelCards">
+		<h1>Model cards & Datasets</h1>
+		<div class="mcgcontainer">
+			<div class="modelCardsGrid">
+				<div class="linkButton" id="mc-toxicity">
+					<h2 class="text">Toxicity model card</h2>
+					<h3 class="text">Includes information on intended usage, model training processes & evaluation results.</h3>
+				</div>
+				<div class="linkButton" id="mc-overview">
+					<h2 class="text">Toxicity overview</h2>
+					<h3 class="text">Highlights & explanations on the toxicity model card.</h3>
+				</div>
+				<div class="linkButton" id="mc-performance">
+					<h2 class="text">Performance overview</h2>
+					<h3 class="text">Performance details for each attribute.</h3>
+				</div>
+				<div class="linkButton" id="mc-datasets">
+					<h2 class="text">Datasets</h2>
+					<h3 class="text">Toxicity corpora (toxicity).</h3>
+				</div>
+				<div class="linkButton" id="mc-osc">
+					<h2 class="text">Open source code</h2>
+					<h3 class="text">Examples to use the AI.</h3>
+				</div>
+				<div class="linkButton" id="mc-research-contributions">
+					<h2 class="text">Research contribs</h2>
+					<h3 class="text">Academic research for the API.</h3>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+<h1 style="display: none;" id="inviteCode">https://discord.com/api/oauth2/authorize?client_id=840601414685556746&permissions=8&scope=bot</h1>
+<script src="https://cdn.jsdelivr.net/gh/Rapsssito/github-profile-badge@latest/src/widget.min.js"></script>
+
+</html>

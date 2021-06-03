@@ -1,26 +1,35 @@
 <html lang="en">
 <head>
+	<style type="text/css">body {background: #333541ff top left no-repeat;}</style>
 	<title>Modera</title>
 	<meta charset="UTF-8">
 	<link rel="icon" href="{{ url_for('static', filename='imgs/logo.png' )}}">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ url_for('static', filename='lib/alertifyjs/alertify.min.js' )}}"></script>
 	<script src="{{ url_for('static', filename='js/navbar.js' )}}"></script>
 	<script src="{{ url_for('static', filename='js/index.js' )}}"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/alertify.min.css' )}}" />
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='lib/alertifyjs/css/themes/default.min.css' )}}" />
 	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/navbar.css' )}}" />
 	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/index.css' )}}" />
+
+	<script src="{{ url_for('static', filename='js/fadein.js' )}}"></script>
+	<link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/fadein.css' )}}" />
+
 </head>
-<body>
-	<div class="topnav" id="navbar">
-		<a href="#home" class="logo">
+<body class="hidden">
+	<div class="topnav" id="navbar" unselectable="on" onselectstart="return false;" onmousedown="return false;">
+		<a href="#" class="logo">
 			<img border="0" class="logoimg" alt="Modera logo" src="{{ url_for('static', filename='imgs/logo_full_white.png' )}}" />
 		</a>
-		<a href="#home" class="active home">Home</a>
-		<a href="#" onclick="invite()">Invite</a>
-		<a href="#info">Info</a>
-		<a href="#tos">Terms of Service</a>
-		<a href="#report">Report</a>
-		<a href="#dashboard" class="floatright">Dashboard</a>
+		<a href="/" class="active home">Home</a>
+		<a class="clickableA" onclick="inviteScroll()">Invite</a>
+		<a href="info">Info</a>
+		<a href="tos">Terms of Service</a>
+		<a href="privacy">Privacy policy</a>
+		<a href="report">Report</a>
+		<a href="dashboard" class="floatright">Dashboard</a>
 		<a href="javascript:void(0);" class="icon" onclick="func()">
 		<i class="fa fa-bars"></i>
 	</div>
@@ -37,18 +46,69 @@
 			<div class="fadein">
 				<div class="buttonRow bodyLimiter">
 					<div class="buttonCol">
-						<button class="buttonBody primary" onclick="invite()">INVITE BOT</button>
+						<button class="buttonBody primary" onclick="inviteScroll()">INVITE BOT</button>
 					</div>
 					<div class="buttonCol">
-						<button class="buttonBody secondary">CONFIGURE</button>
+						<button class="buttonBody secondary" onclick="configure()">CONFIGURE</button>
 					</div>
 				</div>
 				<div class="github-profile-badge badge" data-user="Cyclip"></div>
 			</div>
 		</div>
 	</div>
+	<div class="featureSection" id="featureSection">
+		<div class="featureSectionText">
+			<h1 id="fs_title">Automatically detect toxic, abusive and inflammatory messages</h1>
+			<div class="fst">
+				<div class="fsttext">
+					<h3 id="fs_desc1">To boost effectivity, Modera uses production-grade machine learning models to analyse the content of each message, determining whether it violates the server's policies.</h3>
+					<h3 id="fs_desc2">Configuring the bot to tailor it to your server is designed to be as simple as possible, whilst preserving flexibility. Once you set it up, Modera will consistently monitor server activity to automate content moderation.</h3>
+					<h3 id="fs_desc3" class="bottom">Convinced? Try it out and see how it goes.</h3>
+				</div>
+				<div class="fstimgcont">
+					<div class="fstimgcont2">
+						<h2 class="fstimgcap">-EXAMPLE-</h2>
+						<img border="0" class="fstimg" src="{{ url_for('static', filename='imgs/example.gif' )}}" />
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="anonSection">
+		<div class="anonCont">
+			<div class="anonImgCont">
+				<img border="0" class="anonImg" src="{{ url_for('static', filename='imgs/privacy-min.png' )}}" />
+			</div>
+			<div class="anonText">
+				<h1 style="margin-bottom: 0px; margin-top: 0px;">All messages are guaranteed to remain anonymous.</h1>
+				<h3 style="margin-top: 5px;">Confidentiality is an important aspect of Modera.</h3>
+				<h5 style="font-weight: thinner;">*Reporting a false positive message requires the message contents to be sent for review.</h5>
+			</div>
+		</div>
+	</div>
+	<div class="inviteSection" id="invite">
+		<h1 style="padding-left: 60px;">Invite Modera to your server</h1>
+		<div class="inviteText">
+			<h2>It is vital to understand that Modera is not a complete replacement for human moderation; it only serves as assistance. As it uses AI, it may be inaccurate and any false positives should be reported to improve the algorithm.</h2>
+			<h2>By inviting the bot, you give consent to the processing of your data detailed in the <a href="privacy-policy" class="link">privacy policy</a> and you agree to the <a href="tos" class="link">Terms of Service</a>.</h2>
+		</div>
+		<div class="inviteDetails">
+			<h2>Invite links</h2>
+			<button class="buttonBody primary inviteDetailsBtn" onclick="invite()" style="margin-left: 50px; height: 40px; margin-bottom: 0px;">INVITE BOT</button>
+			<button class="buttonBody secondary inviteDetailsBtn" onclick="copyInvite()" style="margin-left: 50px; height: 40px;">COPY LINK</button>
+
+		</div>
+	</div>
+	<div class="credits">
+		<h1 style="font-weight: bold; font-size: 16px;">Project information</h1>
+		<h2 style="font-size: 12px;">Modera is developed and maintained by Cyclip.</h2>
+		<h2 style="font-size: 12px;">Due to the use of machine learning, model cards and datasets are provided publicly to ensure users understand how it operates. All inputs and outputs are heavily filtered and may be monitored if needed.</h3>
+		<h5 style="font-size: 8px;">privacy policy by Vectors Point from the Noun Project</h5>
+	</div>
 </body>
 
+<h1 style="display: none;" id="inviteCode">https://discord.com/api/oauth2/authorize?client_id=840601414685556746&permissions=8&scope=bot</h1>
 <script src="https://cdn.jsdelivr.net/gh/Rapsssito/github-profile-badge@latest/src/widget.min.js"></script>
 
 </html>

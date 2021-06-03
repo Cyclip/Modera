@@ -123,21 +123,33 @@ class Modera:
                 "m~",
             ],
             "deleteComments": True,
-            "logTo": ctx.guild.text_channels[0].id,
+            "logTo": ctx.text_channels[0].id,
             "toxicityFiltering": {"enabled": False, "threshold": 80},
             "abusiveFiltering": {"enabled": True, "threshold": 60},
-            "identity_attackFiltering": {"enabled": True, "threshold": 70},
+            "identity_attackFiltering": {"enabled": True, "threshold": 85},
             "insultsFiltering": {"enabled": True, "threshold": 90},
             "profanityFiltering": {"enabled": False, "threshold": 70},
             "threatsFiltering": {"enabled": True, "threshold": 70},
-            "sexualFiltering": {"enabled": True, "threshold": 70, "allow_nsfw": False},
+            "sexualFiltering": {"enabled": True, "threshold": 80, "allow_nsfw": False},
             "flirtationFiltering": {
                 "enabled": True,
-                "threshold": 80,
+                "threshold": 85,
                 "allow_nsfw": False,
             },
             "incoherencyFiltering": {"enabled": False, "threshold": 90},
             "inflammatoryFiltering": {"enabled": False, "threshold": 80},
+            "punishment": {
+                "toxicityFiltering": [],
+                "abusiveFiltering": [],
+                "identity_attackFiltering": [],
+                "insultsFiltering": [],
+                "profanityFiltering": [],
+                "threatsFiltering": [],
+                "sexualFiltering": [],
+                "flirtationFiltering": [],
+                "incoherencyFiltering": [],
+                "inflammatoryFiltering": [],
+            },
         }
         serverSettings.update_one(
             key,
@@ -168,10 +180,6 @@ class Modera:
         Unload all cogs in self.loadedCogs
         """
         for cogName in self.loadedCogs:
-            if ignoreAdmin:
-                if cogName == "cog_admin.py":
-                    continue
-            # cog = self.bot.get_cog(cogName)
             self.bot.unload_extension(cogName)
             print(f"Unloaded {cogName}")
 

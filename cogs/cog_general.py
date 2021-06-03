@@ -111,6 +111,30 @@ class General(commands.Cog):
 
         await ctx.send("Updated prefixes!")
 
+    @commands.cooldown(1, 5, commands.BucketType.guild)
+    @commands.has_permissions(manage_guild=True)
+    @commands.command(
+        aliases=["dash", "db"], description="Get the server's dashboard URL"
+    )
+    async def dashboard(self, ctx):
+        _id = ctx.guild.id
+        name = ctx.guild.name.replace(" ", "%20")
+        icon = ctx.guild.icon_url
+        url = f"http://{config.dashboardRoot}/{_id}?name={name}&icon={icon}"
+
+        embed = discord.Embed(
+            title=f"{name} dashboard URL",
+            color=config.uniColour,
+        )
+
+        embed.add_field(
+            name="You must have the manage guild permission.",
+            value=f"[Go to dashboard]({url})",
+        )
+
+        embed.set_thumbnail(url=icon)
+        await ctx.send(embed=embed)
+
     @commands.command(name="help", description="View the help menu")
     async def _help(self, ctx, module: typing.Optional[str] = ""):
         """

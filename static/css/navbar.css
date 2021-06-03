@@ -15,6 +15,7 @@ body {
 	background-color: #333542;
 	overflow: hidden;
 	box-shadow: 0 2px 6px -2px rgb(0, 0, 0);
+	z-index: 100;
 }
 
 .topnav a {
@@ -39,7 +40,7 @@ body {
 
 .topnav .icon {
 	display: none;
-	height: 20px;
+	height: 25px;
 }
 
 .topnav .floatright {
@@ -79,4 +80,8 @@ body {
 		display: block;
 		text-align: left;
 	}
+}
+
+.clickableA {
+	cursor: pointer;
 }

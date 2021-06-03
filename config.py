@@ -2,7 +2,7 @@ description = """Intelligent Discord bot for moderation assistance."""
 
 prefix = "~"
 
-owners = [475272000089227276]
+owners = [475272000089227276, 744580836241965118]
 
 cooldownCooldown = 10
 
@@ -175,3 +175,10 @@ attributeConv = {
     "incoherencyFiltering": "INCOHERENT",
     "inflammatoryFiltering": "INFLAMMATORY",
 }
+
+describeSettings = {
+    "prefixes": "A list of prefixes to call the bot by",
+    "deleteComments": "Whether or not to delete flagged comments",
+}
+
+dashboardRoot = "127.0.0.1:5000/dashboard"

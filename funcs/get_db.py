@@ -15,3 +15,4 @@ def get_client():
 
 
 mongoClient = get_client()
+DATABASE = mongoClient.data
